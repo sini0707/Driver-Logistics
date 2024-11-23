@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, TextField, Grid, Typography } from "@mui/material";
 import BookingConfirmation from "./BookingConfirmation";
+import { MapPin } from 'lucide-react';
 
 const PickupDetailsForm = ({ onClose, onSubmit, existingDetails }) => {
   const [pickupDetails, setPickupDetails] = useState({
@@ -11,7 +12,7 @@ const PickupDetailsForm = ({ onClose, onSubmit, existingDetails }) => {
     emailAddress: "",
   });
   const [showConfirmation, setShowConfirmation] = useState(false);
-
+  
  
   const today = new Date().toISOString().split("T")[0];
 
@@ -42,6 +43,7 @@ const PickupDetailsForm = ({ onClose, onSubmit, existingDetails }) => {
       onClose();
     }
   };
+ 
 
   return (
     <div>
@@ -107,6 +109,7 @@ const PickupDetailsForm = ({ onClose, onSubmit, existingDetails }) => {
           />
         </Grid>
       </Grid>
+      
 
       <Button
         variant="contained"
@@ -124,6 +127,7 @@ const PickupDetailsForm = ({ onClose, onSubmit, existingDetails }) => {
         />
       )}
     </div>
+    
   );
 };
 
