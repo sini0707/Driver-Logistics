@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { Button, Card } from "@mui/material";
-import PaymentSummary from "./PaymentSummary"; // Import your PaymentSummary component
+import PaymentSummary from "./PaymentSummary"; 
 
 const PaymentPage = ({ orders }) => {
   const [showConfirmation, setShowConfirmation] = useState(false);
 
-  // Calculate total weight
+
   const totalWeight = orders.reduce((total, order) => {
     return total + order.actualWeight * order.quantity;
   }, 0);
 
-  // Calculate subtotal (example: ₹25/kg as base rate)
   const baseRatePerKg = 25;
   const subTotal = totalWeight * baseRatePerKg;
 
@@ -19,7 +18,7 @@ const PaymentPage = ({ orders }) => {
   };
 
   if (showConfirmation) {
-    return <div>Payment Successful!</div>; // Replace with your confirmation component
+    return <div>Payment Successful!</div>;
   }
 
   return (
@@ -34,10 +33,10 @@ const PaymentPage = ({ orders }) => {
           borderRadius: "10px",
         }}
       >
-        {/* PaymentSummary Component */}
+     
         <PaymentSummary totalWeight={totalWeight} subTotal={subTotal} />
 
-        {/* Pay Now Button */}
+     
         <Button
           variant="contained"
           color="primary"

@@ -41,7 +41,7 @@ const PaymentSummary = ({ orders }) => {
 
       setSubTotal(calculateSubTotal());
     } else {
-      // Reset values when no orders
+     
       setTotalWeight(0);
       setSubTotal(null);
     }

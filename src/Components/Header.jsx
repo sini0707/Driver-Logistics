@@ -13,9 +13,10 @@ const Header = () => {
         size="2x" // Adjust size if necessary
         className="text-yellow-300 mr-3 drop-shadow-md"
       />
-      <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-yellow-200">
-        Driver Logistics
-      </h1>
+      <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-yellow-200 hover:bg-gradient-to-r hover:from-yellow-200 hover:to-white hover:scale-110 transition-transform duration-300">
+  Driver Logistics
+</h1>
+
     </div>
 
       <div className="flex items-center space-x-4">

@@ -17,16 +17,16 @@ const DeliveryDetails = ({
   const [error, setError] = useState(false); 
 
   const handleSaveDetails = () => {
-    // Validate the phone number
+  
     if (!/^\d{10}$/.test(pickupDetails.DeliveryContactNumber)) {
-      setError(true); // Set error if the phone number is not 10 digits
+      setError(true); 
     } else {
-      setError(false); // Clear error if the phone number is valid
-      onUpdatePickupDetails(pickupDetails); // Call update function if valid
+      setError(false); 
+      onUpdatePickupDetails(pickupDetails);
     }
   };
 
-  // Get today's date in YYYY-MM-DD format
+ 
   const today = new Date().toISOString().split("T")[0];
 
   return (
@@ -92,7 +92,7 @@ const DeliveryDetails = ({
               value={pickupDetails.DeliveryContactNumber}
               onChange={onInputChange}
               error={error}
-              helperText={error ? "Phone number must be 10 digits." : ""} // Error message
+              helperText={error ? "Phone number must be 10 digits." : ""} 
             />
             <TextField
               label="Address"

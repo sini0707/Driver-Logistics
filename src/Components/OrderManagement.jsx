@@ -63,7 +63,6 @@ const OrderManagement = () => {
   });
   const [orderSummary, setOrderSummary] = useState({});
   const [bookingDetails, setBookingDetails] = useState({});
-  
 
   const categories = [
     { name: "Consumables", icon: <Kitchen fontSize="large" /> },
@@ -132,15 +131,10 @@ const OrderManagement = () => {
   const handleDeleteOrder = (indexToDelete) => {
     setOrders(orders.filter((_, index) => index !== indexToDelete));
   };
-  // const startEditing = (index) => {
-  //   setEditIndex(index);
-  //   setEditedOrder({ ...orders[index] });
-  //   setTempCategory(orders[index].productCategory);
-  //   setOpen(true);
-  // };
+  
   const startEditing = (index) => {
     setEditIndex(index);
-    setShowPickupForm(false); // Hide pickup form when editing an order
+    setShowPickupForm(false); 
     setEditedOrder({ ...orders[index] });
   };
   
@@ -676,7 +670,7 @@ const OrderManagement = () => {
                       <div className="p-4 border-t border-gray-200">
                         <div className="mb-4">
                           <div className="flex items-center justify-between mb-2">
-                            <h3 className="font-bold">Pickup Address</h3>
+                            <h3 className="font-bold">Pickup details</h3>
                             <button
                               onClick={handleEditClick}
                               className="text-blue-600 hover:text-blue-800"
@@ -724,7 +718,7 @@ const OrderManagement = () => {
 
                         <div className="mb-4">
                           <div className="flex items-center justify-between mb-2">
-                            <h3 className="font-bold">Delivery Address</h3>
+                            <h3 className="font-bold">Delivery details</h3>
                             <button
                               onClick={handleEditClick1}
                               className="text-blue-600 hover:text-blue-800"
