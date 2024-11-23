@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, TextField, Grid, Typography } from "@mui/material";
 import BookingConfirmation from "./BookingConfirmation";
-import { MapPin } from 'lucide-react';
+// import { MapPin } from 'lucide-react';
 
 const PickupDetailsForm = ({ onClose, onSubmit, existingDetails }) => {
   const [pickupDetails, setPickupDetails] = useState({

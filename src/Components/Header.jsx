@@ -1,18 +1,22 @@
 import React from 'react';
 import { Camera, Phone, Mail } from 'lucide-react';
+import { faTruckFast } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 const Header = () => {
   return (
     <div className="flex justify-between items-center p-4 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 shadow-md">
       <div className="flex items-center">
-        <Camera 
-          size={30} 
-          className="text-yellow-300 mr-3 drop-shadow-md" 
-        />
-        <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-yellow-200">
-          Driver Logistics
-        </h1>
-      </div>
+      <FontAwesomeIcon
+        icon={faTruckFast}
+        size="2x" // Adjust size if necessary
+        className="text-yellow-300 mr-3 drop-shadow-md"
+      />
+      <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-yellow-200">
+        Driver Logistics
+      </h1>
+    </div>
 
       <div className="flex items-center space-x-4">
         <div className="flex items-center group">

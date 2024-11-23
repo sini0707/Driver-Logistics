@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
-import { Card, Button } from '@mui/material';  
+import { Card } from '@mui/material';  
 
 const PaymentSummary = ({ orders }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false);
+ 
   const [subTotal, setSubTotal] = useState(null);
   const [totalWeight, setTotalWeight] = useState(0);
 
-  // Calculate totals only when orders change
+
   useEffect(() => {
     if (orders && orders.length > 0) {
-      // Calculate total weight from orders
+     
       const weight = orders.reduce((total, order) => {
         return total + (order.actualWeight || 0) * (order.quantity || 1);
       }, 0);
       setTotalWeight(weight);
 
-      // Calculate subtotal only if there are orders
+   
       const calculateSubTotal = () => {
         const baseFreight = 10.0;
         const docketCharge = 2016.0;
@@ -63,7 +63,7 @@ const PaymentSummary = ({ orders }) => {
   return (
     <Card className="max-w-md mx-auto my-5">
       <div className="space-y-4">
-        {/* Header */}
+     
         <div
           className="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-50"
           onClick={() => setIsExpanded(!isExpanded)}
@@ -82,7 +82,6 @@ const PaymentSummary = ({ orders }) => {
           <span className="text-gray-900">{totalWeight}kg</span>
         </div>
 
-        {/* Sub Total - Only shown when orders exist */}
         {orders?.length > 0 && (
           <div className="bg-blue-50 p-4 rounded-lg flex justify-between items-center">
             <span className="font-medium text-gray-900">SUB TOTAL</span>
@@ -92,7 +91,7 @@ const PaymentSummary = ({ orders }) => {
           </div>
         )}
 
-        {/* Expanded Details */}
+      
         {isExpanded && (
           <div className="p-4 border-t border-gray-200">
             <div className="space-y-3">
@@ -106,17 +105,7 @@ const PaymentSummary = ({ orders }) => {
           </div>
         )}
 
-        {/* Pay Now Button - Only shown when orders exist */}
-        {/* {orders?.length > 0 && subTotal && (
-          <div className="p-4">
-            <Button 
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-              onClick={() => setShowConfirmation(true)}
-            >
-              Pay ₹{subTotal}
-            </Button>
-          </div>
-        )} */}
+      
       </div>
     </Card>
   );
