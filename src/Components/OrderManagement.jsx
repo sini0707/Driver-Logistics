@@ -49,7 +49,9 @@ const OrderManagement = () => {
   const [open, setOpen] = useState(false);
   const [quantity, setQuantity] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
-
+  const [showPickupForm, setShowPickupForm] = useState(true); // Form is shown by default
+ 
+  
   const [pickupDetails, setPickupDetails] = useState({
     selectDate: "",
     selectTime: "",
@@ -129,13 +131,18 @@ const OrderManagement = () => {
   const handleDeleteOrder = (indexToDelete) => {
     setOrders(orders.filter((_, index) => index !== indexToDelete));
   };
+  // const startEditing = (index) => {
+  //   setEditIndex(index);
+  //   setEditedOrder({ ...orders[index] });
+  //   setTempCategory(orders[index].productCategory);
+  //   setOpen(true);
+  // };
   const startEditing = (index) => {
     setEditIndex(index);
+    setShowPickupForm(false); // Hide pickup form when editing an order
     setEditedOrder({ ...orders[index] });
-    setTempCategory(orders[index].productCategory);
-    setOpen(true);
   };
-
+  
   const cancelEditing = () => {
     setEditIndex(null);
      setEditedOrder(null);

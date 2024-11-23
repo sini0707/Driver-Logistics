@@ -21,6 +21,7 @@ const PickupDetailsForm = ({ onClose, onSubmit, existingDetails }) => {
       setPickupDetails(existingDetails);
     }
   }, [existingDetails]);
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
