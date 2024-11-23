@@ -63,6 +63,7 @@ const OrderManagement = () => {
   });
   const [orderSummary, setOrderSummary] = useState({});
   const [bookingDetails, setBookingDetails] = useState({});
+  
 
   const categories = [
     { name: "Consumables", icon: <Kitchen fontSize="large" /> },
@@ -296,41 +297,47 @@ const OrderManagement = () => {
                   </Grid>
                 ))}
               </Grid>
+              <Box my={2} display="flex" alignItems="center" gap={2}></Box>
               <Typography variant="h6">Select Load Type</Typography>
               <Box my={2}>
-                <Select
-                  value={loadType}
-                  onChange={(e) => setLoadType(e.target.value)}
-                  fullWidth
-                  displayEmpty
-                >
-                  <MenuItem value="" disabled>
-                    Choose Load Type
-                  </MenuItem>
-                  <MenuItem value="Carton Box">Carton Box</MenuItem>
-                  <MenuItem value="Wooden Box">Wooden Box</MenuItem>
-                </Select>
-                <TextField
-                  type="number"
-                  label="Quantity"
-                  value={quantity}
-                  onChange={(e) => {
-                    const value = e.target.value;
-
-                    if (value === "" || Number(value) >= 0) {
-                      setQuantity(value);
-                    }
-                  }}
-                  sx={{ width: "30%", mt: 2 }}
-                  InputLabelProps={{
-                    sx: {
-                      fontWeight: "normal",
-                      "&.Mui-focused": {
-                        fontWeight: "bold",
-                      },
-                    },
-                  }}
-                />
+              <Select
+    value={loadType}
+    onChange={(e) => setLoadType(e.target.value)}
+    displayEmpty
+    sx={{
+      width: "300px", // Fixed width for the dropdown
+    }}
+  >
+    <MenuItem value="" disabled>
+      Choose Load Type
+    </MenuItem>
+    <MenuItem value="Carton Box">Carton Box</MenuItem>
+    <MenuItem value="Wooden Box">Wooden Box</MenuItem>
+    <MenuItem value="Plastic">Plastic</MenuItem>
+    <MenuItem value="Other">Other</MenuItem>
+  </Select>
+  <TextField
+    type="number"
+    label="Quantity"
+    value={quantity}
+    onChange={(e) => {
+      const value = e.target.value;
+      if (value === "" || Number(value) >= 0) {
+        setQuantity(value);
+      }
+    }}
+    sx={{
+      width: "150px", // Fixed width for the input field
+    }}
+    InputLabelProps={{
+      sx: {
+        fontWeight: "normal",
+        "&.Mui-focused": {
+          fontWeight: "bold",
+        },
+      },
+    }}
+  />
 
                 <TextField
                   label="Invoice Number"
@@ -415,232 +422,229 @@ const OrderManagement = () => {
                 </Box>
               </Box>
               <Typography variant="h6" gutterBottom sx={{ fontWeight: "bold" }}>
-                Order Overview
-              </Typography>
-              <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                      <th scope="col" className="px-6 py-3">
-                        No
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        Invoice No
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        Load Type
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        Quantity
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        Actual Weight
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        Volumetric (cm)
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        Product Category
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        HAZMAT Class
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        Action
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {orders.map((order, index) => (
-                      <tr
-                        key={index}
-                        className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
-                      >
-                        <td className="px-6 py-4">{index + 1}</td>
-                        <td className="px-6 py-4">
-                          {editIndex === index ? (
-                            <input
-                              type="text"
-                              value={editedOrder.invoiceNumber}
-                              onChange={(e) =>
-                                handleFieldChange(
-                                  "invoiceNumber",
-                                  e.target.value
-                                )
-                              }
-                              className="border rounded p-2 w-full"
-                            />
-                          ) : (
-                            order.invoiceNumber
-                          )}
-                        </td>
-                        <td className="px-6 py-4">
-                          {editIndex === index ? (
-                            <select
-                              value={editedOrder.loadType}
-                              onChange={(e) =>
-                                handleFieldChange("loadType", e.target.value)
-                              }
-                              className="border rounded p-2 w-full"
-                            >
-                              <option value="Carton Box">Carton Box</option>
-                              <option value="Wooden Box">Wooden Box</option>
-                              <option value="Pallet">Pallet</option>
-                            </select>
-                          ) : (
-                            order.loadType
-                          )}
-                        </td>
-                        <td className="px-6 py-4">
-                          {editIndex === index ? (
-                            <input
-                              type="number"
-                              value={editedOrder.quantity || 0}
-                              onChange={(e) =>
-                                handleFieldChange("quantity", e.target.value)
-                              }
-                              className="border rounded p-2 w-full"
-                              min="0"
-                            />
-                          ) : (
-                            order.quantity || 0
-                          )}
-                        </td>
+  Order Overview
+</Typography>
+<div
+  className="relative shadow-md sm:rounded-lg overflow-y-auto"
+  style={{ maxHeight: "70vh" }} // Limit the height of the container
+>
+  <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 table-auto">
+    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th scope="col" className="px-6 py-3">
+          No
+        </th>
+        <th scope="col" className="px-6 py-3">
+          Invoice No
+        </th>
+        <th scope="col" className="px-6 py-3">
+          Load Type
+        </th>
+        <th scope="col" className="px-6 py-3">
+          Quantity
+        </th>
+        <th scope="col" className="px-6 py-3">
+          Actual Weight
+        </th>
+        <th scope="col" className="px-6 py-3">
+          Volumetric (cm)
+        </th>
+        <th scope="col" className="px-6 py-3">
+          Product Category
+        </th>
+        <th scope="col" className="px-6 py-3">
+          HAZMAT Class
+        </th>
+        <th scope="col" className="px-6 py-3">
+          Action
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {orders.map((order, index) => (
+        <tr
+          key={index}
+          className="odd:bg-white even:bg-gray-50 dark:odd:bg-gray-900 dark:even:bg-gray-800 border-b dark:border-gray-700"
+        >
+          <td className="px-6 py-4">{index + 1}</td>
+          <td className="px-6 py-4">
+            {editIndex === index ? (
+              <input
+                type="text"
+                value={editedOrder.invoiceNumber}
+                onChange={(e) =>
+                  handleFieldChange("invoiceNumber", e.target.value)
+                }
+                className="border rounded p-2 w-full"
+              />
+            ) : (
+              order.invoiceNumber
+            )}
+          </td>
+          <td className="px-6 py-4">
+            {editIndex === index ? (
+              <select
+                value={editedOrder.loadType}
+                onChange={(e) =>
+                  handleFieldChange("loadType", e.target.value)
+                }
+                className="border rounded p-2 w-full bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                style={{ minWidth: "120px" }} // Adjust dropdown width
+              >
+                <option value="Carton Box">Carton Box</option>
+                <option value="Wooden Box">Wooden Box</option>
+                <option value="Plastic">Plastic</option>
+                <option value="Other">Other</option>
 
-                        <td className="px-6 py-4">
-                          {editIndex === index ? (
-                            <input
-                              type="text"
-                              value={editedOrder.actualWeight}
-                              onChange={(e) =>
-                                handleFieldChange(
-                                  "actualWeight",
-                                  e.target.value
-                                )
-                              }
-                              className="border rounded p-2 w-full"
-                            />
-                          ) : (
-                            order.actualWeight
-                          )}
-                        </td>
-                        <td className="px-6 py-4">
-                          {editIndex === index ? (
-                            <div className="flex gap-2">
-                              <input
-                                type="text"
-                                value={editedOrder.volumetric.length}
-                                onChange={(e) =>
-                                  handleFieldChange("volumetric", {
-                                    ...editedOrder.volumetric,
-                                    length: e.target.value,
-                                  })
-                                }
-                                placeholder="L"
-                                className="border rounded p-2 w-1/3"
-                              />
-                              <input
-                                type="text"
-                                value={editedOrder.volumetric.width}
-                                onChange={(e) =>
-                                  handleFieldChange("volumetric", {
-                                    ...editedOrder.volumetric,
-                                    width: e.target.value,
-                                  })
-                                }
-                                placeholder="W"
-                                className="border rounded p-2 w-1/3"
-                              />
-                              <input
-                                type="text"
-                                value={editedOrder.volumetric.height}
-                                onChange={(e) =>
-                                  handleFieldChange("volumetric", {
-                                    ...editedOrder.volumetric,
-                                    height: e.target.value,
-                                  })
-                                }
-                                placeholder="H"
-                                className="border rounded p-2 w-1/3"
-                              />
-                            </div>
-                          ) : (
-                            `${order.volumetric.length} x ${order.volumetric.width} x ${order.volumetric.height}`
-                          )}
-                        </td>
-                        <td className="px-6 py-4">
-                          {editIndex === index ? (
-                            <input
-                              type="text"
-                              value={editedOrder.productCategory}
-                              onChange={(e) =>
-                                handleFieldChange(
-                                  "productCategory",
-                                  e.target.value
-                                )
-                              }
-                              className="border rounded p-2 w-full"
-                            />
-                          ) : (
-                            order.productCategory
-                          )}
-                        </td>
-                        <td className="px-6 py-4">
-                          {editIndex === index ? (
-                            <select
-                              value={editedOrder.HAZMATclass}
-                              onChange={(e) =>
-                                handleFieldChange("HAZMATclass", e.target.value)
-                              }
-                              className="border rounded p-2 w-full"
-                            >
-                              <option value="Yes">Yes</option>
-                              <option value="No">No</option>
-                            </select>
-                          ) : (
-                            order.HAZMATclass
-                          )}
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="flex gap-2">
-                            {editIndex === index ? (
-                              <>
-                                <button
-                                  onClick={saveChanges}
-                                  className="bg-green-500 text-white px-3 py-1 rounded"
-                                >
-                                  Save
-                                </button>
-                                <button
-                                  onClick={cancelEditing}
-                                  className="bg-red-500 text-white px-3 py-1 rounded"
-                                >
-                                  Cancel
-                                </button>
-                              </>
-                            ) : (
-                              <>
-                                <button
-                                  onClick={() => startEditing(index)}
-                                  className="bg-blue-500 text-white px-3 py-1 rounded"
-                                >
-                                  Edit
-                                </button>
-                                <button
-                                  onClick={() => handleDeleteOrder(index)}
-                                  className="bg-red-500 text-white px-3 py-1 rounded"
-                                >
-                                  Delete
-                                </button>
-                              </>
-                            )}
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+              </select>
+            ) : (
+              order.loadType
+            )}
+          </td>
+          <td className="px-6 py-4">
+            {editIndex === index ? (
+              <input
+                type="number"
+                value={editedOrder.quantity || 0}
+                onChange={(e) =>
+                  handleFieldChange("quantity", e.target.value)
+                }
+                className="border rounded p-2 w-full"
+                min="0"
+              />
+            ) : (
+              order.quantity || 0
+            )}
+          </td>
+          <td className="px-6 py-4">
+            {editIndex === index ? (
+              <input
+                type="text"
+                value={editedOrder.actualWeight}
+                onChange={(e) =>
+                  handleFieldChange("actualWeight", e.target.value)
+                }
+                className="border rounded p-2 w-full"
+              />
+            ) : (
+              order.actualWeight
+            )}
+          </td>
+          <td className="px-6 py-4">
+            {editIndex === index ? (
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={editedOrder.volumetric.length}
+                  onChange={(e) =>
+                    handleFieldChange("volumetric", {
+                      ...editedOrder.volumetric,
+                      length: e.target.value,
+                    })
+                  }
+                  placeholder="L"
+                  className="border rounded p-2 w-1/3"
+                />
+                <input
+                  type="text"
+                  value={editedOrder.volumetric.width}
+                  onChange={(e) =>
+                    handleFieldChange("volumetric", {
+                      ...editedOrder.volumetric,
+                      width: e.target.value,
+                    })
+                  }
+                  placeholder="W"
+                  className="border rounded p-2 w-1/3"
+                />
+                <input
+                  type="text"
+                  value={editedOrder.volumetric.height}
+                  onChange={(e) =>
+                    handleFieldChange("volumetric", {
+                      ...editedOrder.volumetric,
+                      height: e.target.value,
+                    })
+                  }
+                  placeholder="H"
+                  className="border rounded p-2 w-1/3"
+                />
               </div>
+            ) : (
+              `${order.volumetric.length} x ${order.volumetric.width} x ${order.volumetric.height}`
+            )}
+          </td>
+          <td className="px-6 py-4">
+            {editIndex === index ? (
+              <input
+                type="text"
+                value={editedOrder.productCategory}
+                onChange={(e) =>
+                  handleFieldChange("productCategory", e.target.value)
+                }
+                className="border rounded p-2 w-full"
+              />
+            ) : (
+              order.productCategory
+            )}
+          </td>
+          <td className="px-6 py-4">
+            {editIndex === index ? (
+              <select
+                value={editedOrder.HAZMATclass}
+                onChange={(e) =>
+                  handleFieldChange("HAZMATclass", e.target.value)
+                }
+                className="border rounded p-2 w-full"
+              >
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            ) : (
+              order.HAZMATclass
+            )}
+          </td>
+          <td className="px-6 py-4">
+            <div className="flex gap-2">
+              {editIndex === index ? (
+                <>
+                  <button
+                    onClick={saveChanges}
+                    className="bg-green-500 text-white px-3 py-1 rounded"
+                  >
+                    Save
+                  </button>
+                  <button
+                    onClick={cancelEditing}
+                    className="bg-red-500 text-white px-3 py-1 rounded"
+                  >
+                    Cancel
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={() => startEditing(index)}
+                    className="bg-blue-500 text-white px-3 py-1 rounded"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDeleteOrder(index)}
+                    className="bg-red-500 text-white px-3 py-1 rounded"
+                  >
+                    Delete
+                  </button>
+                </>
+              )}
+            </div>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
             </Grid>
             <Grid item xs={4}>
               <Card
@@ -659,7 +663,8 @@ const OrderManagement = () => {
                       onClick={toggleExpand}
                       className="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-50"
                     >
-                      <h2 className="text-xl font-bold">Order Summary</h2>
+                      {/* <h2 className="text-xl font-bold">Order Summary</h2> */}
+                      <h2 className="text-lg font-semibold text-gray-900">Order Summary</h2>
                       {isExpanded ? (
                         <ChevronUp className="w-6 h-6 text-gray-500" />
                       ) : (
