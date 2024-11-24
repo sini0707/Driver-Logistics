@@ -72,7 +72,22 @@ const OrderManagement = () => {
     { name: "Household Items", icon: <Home fontSize="large" /> },
     { name: "Other", icon: <MoreHoriz fontSize="large" /> },
   ];
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 2;
 
+  // Calculate total pages
+  const totalPages = Math.ceil(orders.length / itemsPerPage);
+
+  // Get current page's data
+  const currentOrders = orders.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+ // Pagination handlers
+ const handlePageClick = (page) => {
+  setCurrentPage(page);
+};
   const handleAddOrder = () => {
     if (
       !selectedCategory ||
@@ -455,12 +470,13 @@ const OrderManagement = () => {
       </tr>
     </thead>
     <tbody>
-      {orders.map((order, index) => (
+    {currentOrders.map((order, index) => (
         <tr
           key={index}
-          className="odd:bg-white even:bg-gray-50 dark:odd:bg-gray-900 dark:even:bg-gray-800 border-b dark:border-gray-700"
+            className="odd:bg-white even:bg-gray-50 dark:odd:bg-gray-900 dark:even:bg-gray-800 border-b dark:border-gray-700"
         >
-          <td className="px-6 py-4">{index + 1}</td>
+           <td className="px-6 py-4">{(currentPage - 1) * itemsPerPage + index + 1}</td>
+          {/* <td className="px-6 py-4">{index + 1}</td> */}
           <td className="px-6 py-4">
             {editIndex === index ? (
               <input
@@ -638,6 +654,42 @@ const OrderManagement = () => {
     </tbody>
   </table>
 </div>
+<div className="flex justify-center items-center mt-4 space-x-2">
+  {/* Backward Arrow */}
+  <button
+    onClick={() => handlePageClick(currentPage - 1)}
+    disabled={currentPage === 1}
+    className="px-3 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 disabled:opacity-50"
+  >
+    &lt;
+  </button>
+
+  {/* Page Numbers */}
+  {Array.from({ length: totalPages }, (_, index) => (
+    <button
+      key={index}
+      onClick={() => handlePageClick(index + 1)}
+      className={`px-3 py-2 rounded ${
+        currentPage === index + 1
+          ? "bg-blue-500 text-white font-bold"
+          : "bg-gray-300 text-gray-700 hover:bg-gray-400"
+      }`}
+    >
+      {index + 1}
+    </button>
+  ))}
+
+  {/* Forward Arrow */}
+  <button
+    onClick={() => handlePageClick(currentPage + 1)}
+    disabled={currentPage === totalPages}
+    className="px-3 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 disabled:opacity-50"
+  >
+    &gt;
+  </button>
+</div>
+
+    
 
             </Grid>
             <Grid item xs={4}>
