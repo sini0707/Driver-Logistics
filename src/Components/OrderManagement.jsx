@@ -59,7 +59,7 @@ const OrderManagement = () => {
     DeliveryContactNumber: "",
     address: " ",
     pincode: "",
-    city: "",
+    place: "",
   });
   const [orderSummary, setOrderSummary] = useState({});
   const [bookingDetails, setBookingDetails] = useState({});
@@ -761,6 +761,14 @@ const OrderManagement = () => {
                               <span className="text-gray-600">
                                 {pickupDetails.pickupDate} |{" "}
                                 {pickupDetails.pickupTime}
+                              </span>
+                            </p>
+                            <p className="flex">
+                              <span className="font-bold w-32">
+                               Pickup Place:
+                              </span>
+                              <span className="text-gray-600">
+                                {pickupDetails.place}
                               </span>
                             </p>
                           </div>

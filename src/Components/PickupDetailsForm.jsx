@@ -10,6 +10,7 @@ const PickupDetailsForm = ({ onClose, onSubmit, existingDetails }) => {
     name: "",
     contactNumber: "",
     emailAddress: "",
+    city:"",
   });
   const [showConfirmation, setShowConfirmation] = useState(false);
   
@@ -108,6 +109,16 @@ const PickupDetailsForm = ({ onClose, onSubmit, existingDetails }) => {
             onChange={handleInputChange}
           />
         </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="pickup place"
+            fullWidth
+            name="place"
+            value={pickupDetails.place}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        
       </Grid>
       
 
